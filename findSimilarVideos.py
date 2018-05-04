@@ -1,6 +1,7 @@
 # Author: Evangelos Dimitriadis
 # The script uses the official youtube API, provided by google, to find similar youtube video IDs.
 
+
 import sys
 import urllib.request
 import json
@@ -18,7 +19,7 @@ def checkURL(url):
 	matchRegex = re.match(youtubeRegex, url)
 	if matchRegex:					# Return only the videoID
 		return matchRegex.group(6)
-	else:							# It should be the videoID
+	else:							# It should be already a videoID
 		return url 
 
 def sendRequest(search):
@@ -37,15 +38,15 @@ def relatedVideos(videoID,maxResults):
 	if data == -1:
 		return(-1)
 	ListOfVideos = set()
-	for i in range(1,maxResults):
+	for i in range(0,maxResults):
 		ListOfVideos.add(data.get('items', {})[i]['id']['videoId'])
-		#print(data.get('items', {})[i]['id']['videoId'])
 	return ListOfVideos
 
 def main():
-	maxResults = 10
+	# The number of the videos that the script will try to find	
+	maxResults = 30
+	# This is a great video ID example
 	url = 'aJmeouLNlpY'
-	#url = "https://www.youtube.com/watch?v=yK58EX4RZxA&feature=youtu.be&list=PLbYZp8RGbKd2W7Sh2TWojHzWNVk-kvxak"
 	print("The video ID is: " + checkURL(url))
 	videoID = checkURL(url)
 	IDs = relatedVideos(videoID,maxResults)

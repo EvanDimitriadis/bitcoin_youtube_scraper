@@ -1,5 +1,6 @@
 # Author: Evangelos Dimitriadis
 # The script uses the official youtube API, provided by google, to find bitcoin addresses.
+# Creates two files for bitcoin addresses found in description and in comments respectively.
 
 import sys
 import urllib.request
@@ -8,6 +9,8 @@ import pprint
 import re
 import logging
 
+# This is a personal key. You are kindly adviced to not destroy the Internet using this one.
+# You could always aquire your own at https://developers.google.com/youtube/v3/getting-started
 APIkey = "AIzaSyDMT-jhXXO26Tyi-q1_6dst2y2xP-jzOfc"
 
 def item_generator(json_input, lookup_key):
@@ -26,7 +29,7 @@ def item_generator(json_input, lookup_key):
 def findBitcoins(line):
 	searchObj = re.search("([']?)[123mn][a-km-zA-HJ-NP-Z1-9]{26,33}([']?)", line)
 	return searchObj
-
+# Is it a youtube address?
 def checkURL(url):
 	youtubeRegex = (
         r'(https?://)?(www\.)?'
@@ -91,12 +94,18 @@ def findComments(videoID):
 			logging.exception(exception, False)
 
 def main():
+	# This is a great video ID example. We use it to find similar videos.
 	url = 'aJmeouLNlpY'
-	#url = "https://www.youtube.com/watch?v=yK58EX4RZxA&feature=youtu.be&list=PLbYZp8RGbKd2W7Sh2TWojHzWNVk-kvxak"
-	print("The video ID is: " + checkURL(url))
-	videoID = checkURL(url)
-	findComments(videoID)
-	findDescription(videoID)
+	# An example of a "bad" youtube link. However it still works with checkURL().
+	# url = "https://www.youtube.com/watch?v=yK58EX4RZxA&feature=youtu.be&list=PLbYZp8RGbKd2W7Sh2TWojHzWNVk-kvxak"
+	with open("ListOfVideos.txt","r") as readfile:  # The list of similar websites from findSimilarVideos.py
+		file = readfile.readlines()
+	for url in file:
+		url = url.strip('\n')
+		print("The video ID is: " + checkURL(url))
+		videoID = checkURL(url)
+		findComments(videoID)
+		findDescription(videoID)
 
 if __name__ == '__main__':
     sys.exit(main())
