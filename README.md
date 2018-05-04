@@ -12,5 +12,5 @@
 # and here https://elfsight.com/blog/2017/06/youtube-data-api-v3-limits-operations-resources-methods-etc/
 
 #SeleniumScraper.py
-# The standart web scraper. Youtube isn't scrap-friendly. However this script, even much slower, will find the bitcoin addresses
+# The standard web scraper. Youtube isn't scrap-friendly. However this script will find the bitcoin addresses, but much slower.
 # It provides less info.

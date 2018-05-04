@@ -9,7 +9,7 @@ import pprint
 import re
 import logging
 
-# This is a personal key. You are kindly adviced to not destroy the Internet using this one.
+# This is a personal key. You are kindly advised to not destroy the Internet using this one.
 # You could always aquire your own at https://developers.google.com/youtube/v3/getting-started
 APIkey = "AIzaSyDMT-jhXXO26Tyi-q1_6dst2y2xP-jzOfc"
 
